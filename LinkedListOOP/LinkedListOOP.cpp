@@ -69,16 +69,18 @@ public:
 		printf("The stack:\n");
 		LinkedList* temp = this->top;
 
+		printf("NULL");
 		while (temp != NULL) {
-			printf("%d->", temp->data);
+			printf("<-%d", temp->data);
 			temp = temp->next;
 		}
-		printf("NULL\n");
+		printf("\n");
+		
 
 	}
 
 
-	void InsertFirst(int newElement) {
+	void InsertLastForQueue(int newElement) {
 
 		LinkedList* newNode = new LinkedList();
 
@@ -142,7 +144,7 @@ public:
 
 
 	void push(int newElement) {
-		list->InsertFirst(newElement);
+		list->InsertLastForQueue(newElement);
 	}
 
 
@@ -213,7 +215,7 @@ int main() {
 	QueueList->printQueue();
 
 	QueueList->pop();
-	printf("After removing the element:\n");
+	printf("\nAfter removing the element:\n");
 	QueueList->printQueue();
 
 
