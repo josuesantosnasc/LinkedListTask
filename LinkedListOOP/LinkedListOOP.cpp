@@ -3,129 +3,176 @@
 using namespace std;
 
 
+class Node {
+
+private:
+
+	int data;
+	Node* next;
+
+public:
+	Node() {
+		this->data = NULL;
+		this->next = NULL;
+	}
+
+	Node(int data, Node* next) {
+		this->data = data;
+		this->next = next;
+	}
+
+	int getData() {
+		return this->data;
+	}
+
+	void setData(int data) {
+		this->data = data;
+	}
+
+	Node* getNext() {
+		return this->next;
+	}
+
+	void setNext(Node* next) {
+		this->next = next;
+
+		
+	}
+};
+
+
 
 class LinkedList {
 
+private:
+	
+	Node* beginList;
+	Node* endList;
+	Node* previousNode;
 	
 	
 public:
 
-	int data;
-	LinkedList* next;
-	LinkedList* top;
-	LinkedList* front;
+	
 
 	LinkedList() {
-		this->top = NULL;
-		this->front = NULL;
+		this->beginList = NULL;
+		this->endList = NULL;
+		this->previousNode = NULL;
 	}
 
-	void printList() {
-		LinkedList* ptr = this->top;
-
-		
-
-		while (ptr != NULL) {
-
-			printf("%d->", ptr->data);
-			ptr = ptr->next;
-		}
-
-		printf("NULL\n");
-	
-
+	Node* getBeginList() {
+		return this->beginList;
 	}
 
+	Node* getEndList() {
+		return this->endList;
+	}
 	
+
 
 	void InsertLast(int data) {
-		LinkedList* link = new LinkedList();
+		Node* newNode = new Node();
 
+		newNode->setData(data);
+
+		if (this->beginList == NULL && this->endList==NULL) {
+			this->beginList = this->endList =newNode;
+			
+		}
+		else {
+			this->endList->setNext(newNode);
+			this->previousNode = this->endList;
+			this->endList = newNode;
+			
+		}
 		
-		link->data = data;
+		
 
-		link->next =this->top;
 
-		this->top = link;
+	}
 
+	void InsertFirst(int data) {
+		Node* newNode = new Node();
+
+		newNode->setData(data);
+		newNode->setNext(this->beginList);
+
+		if (this->beginList == NULL && this->endList==NULL) {
+			this->beginList = this->endList = newNode;
+		}
+		else {
+			
+			this->beginList = newNode;
+		}
 
 	}
 
 	void DeleteLast() {
-		if (this->top == NULL) {
+		if (this->endList == NULL && this->beginList==NULL) {
 			printf("\nArray empty\n");
 		}
 		else {
-			LinkedList* temp = this->top;
 
-			this->top = this->top->next;
-			free(temp);
+			if (this->previousNode == NULL) {
+				this->endList = this->beginList = NULL;
+			}
+			else {
+
+				Node* tempNode = this->endList;
+
+				this->previousNode->setNext(NULL);
+				this->endList=this->previousNode;
+
+				free(tempNode);
+
+
+			}
+			
 
 		}
 	}
 
-	void PrintFromEnd() {
+	void DeleteFirst() {
+		
 
-		printf("The stack:\n");
-		LinkedList* temp = this->top;
-
-		printf("NULL");
-		while (temp != NULL) {
-			printf("<-%d", temp->data);
-			temp = temp->next;
+		if (this->endList == NULL && this->beginList == NULL) {
+			printf("\nArray empty\n");
 		}
-		printf("\n");
+		else {
+
+			Node* tempNode = this->beginList;
+
+			this->beginList = this->beginList->getNext();
+
+			free(tempNode);
+
+			
+
+		
+
+
+		}
+
+	}
+
+	void PrintList() {
+
+		Node* beginList = this->beginList;
+
+		while (beginList != NULL) {
+			printf("%d->", beginList->getData());
+			beginList = beginList->getNext();
+
+		};
+
+		printf("NULL\n");
 		
 
 	}
 
 
-	void InsertLastForQueue(int newElement) {
-
-		LinkedList* newNode = new LinkedList();
-
-		newNode->data = newElement;
-		newNode->next = NULL;
-
-		if (this->front == NULL && this->top == NULL) {
-			this->front = this->top = newNode;
-		}
-		else {
-			this->top->next = newNode;
-			this->top = newNode;
-		}
-
-	}
 	
-
-	 void DeleteFirstNode() {
-		 LinkedList* temp;
-		 if (this->front == NULL) {
-			 printf("Queue is empty");
-		 }
-		 else {
-			 temp = this->front;
-
-			 this->front = front->next;
-
-			 if (front == NULL) {
-				 top = NULL;
-			 }
-
-			 free(temp);
-		 }
-
-	
-	}
-
-	 void PrintFromFirst() {
-		 LinkedList* temp = this->front;
-		 while (temp) {
-			 printf("%d->", temp->data);
-			 temp = temp->next;
-		 }
-		 printf("NULL\n");
-	 }
 };
 
 
@@ -144,18 +191,18 @@ public:
 
 
 	void push(int newElement) {
-		list->InsertLastForQueue(newElement);
+		list->InsertFirst(newElement);
 	}
 
 
 	void pop() {
 
-		list->DeleteFirstNode();
+		list->DeleteFirst();
 	}
 
 	void printQueue() {
 
-		list->PrintFromFirst();
+		list->PrintList();
 	}
 };
 
@@ -184,7 +231,7 @@ public:
 	}
 
 	void printStack() {
-		list->PrintFromEnd();
+		list->PrintList();
 
 	}
 };
@@ -192,31 +239,47 @@ public:
 int main() {
 
 	Stack* StackList = new Stack();
-	Queue* QueueList = new Queue();
 
-	printf("Test for Stack List:\n");
+	Queue* QueueList = new Queue();
+	
+
+	printf("Test for Stack :\n");
 	StackList->push(10);
-	StackList->push(20);
+	StackList->push(30);
+	StackList->push(40);
 	StackList->push(50);
-	StackList->push(80);
 
 	StackList->printStack();
+
+	printf("After removing the last element:\n");
 
 	StackList->pop();
-	printf("After removing the element:\n");
 	StackList->printStack();
 
-	printf("Test for Queue List:\n");
-	QueueList->push(16);
-	QueueList->push(45);
-	QueueList->push(78);
-	QueueList->push(34);
+	printf("Test for Queue:\n");
+	QueueList->push(10);
+	QueueList->push(30);
+	QueueList->push(40);
+	QueueList->push(50);
 
 	QueueList->printQueue();
+
+	printf("After removing the first element:\n");
 
 	QueueList->pop();
-	printf("\nAfter removing the element:\n");
 	QueueList->printQueue();
+
+
+
+
+
+
+	
+
+	
+
+
+	
 
 
 
