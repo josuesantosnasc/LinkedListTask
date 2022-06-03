@@ -167,6 +167,42 @@ public:
 
 	}
 
+	void DeleteSpecificValue(int value) {
+		Node* tempBeginList = this->beginList;
+		Node* RemovingNode;
+
+		
+		if (tempBeginList != NULL && tempBeginList->getData() == value) {
+			RemovingNode = this->beginList;
+			this->beginList = RemovingNode->getNext();
+			free(RemovingNode);
+		}
+		else {
+			while (tempBeginList != NULL && tempBeginList->getNext()->getData() != value && tempBeginList->getNext() != NULL) {
+
+				tempBeginList = tempBeginList->getNext();
+
+			}
+
+			if (tempBeginList != NULL && tempBeginList->getNext() != NULL) {
+				RemovingNode = tempBeginList->getNext();
+				tempBeginList->setNext(RemovingNode->getNext());
+				
+				free(RemovingNode);
+			}
+			else if (tempBeginList!=NULL && (tempBeginList->getNext()->getData()==this->endList->getData())) {
+				RemovingNode = tempBeginList->getNext();
+				tempBeginList->setNext(NULL);
+				this->endList = tempBeginList;
+
+				free(RemovingNode);
+			}
+		}
+
+		
+	}
+
+
 	void PrintList() {
 
 		Node* beginList = this->beginList;
@@ -283,6 +319,10 @@ int main() {
 	printf("Removing elements from the end of Linked List:\n");
 
 	LinkedListGeneral->DeleteLast();
+	LinkedListGeneral->PrintList();
+
+	printf("Removing 90:\n");
+	LinkedListGeneral->DeleteSpecificValue(90);
 	LinkedListGeneral->PrintList();
 
 
