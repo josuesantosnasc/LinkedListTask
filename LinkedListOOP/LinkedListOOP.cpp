@@ -48,7 +48,7 @@ private:
 	
 	Node* beginList;
 	Node* endList;
-	Node* previousNode;
+	Node* nextToLastNode;
 	
 	
 public:
@@ -58,7 +58,12 @@ public:
 	LinkedList() {
 		this->beginList = NULL;
 		this->endList = NULL;
-		this->previousNode = NULL;
+		this->nextToLastNode = NULL;
+	}
+
+	LinkedList(Node* beginList,Node* endList) {
+		this->beginList = beginList;
+		this->endList = endList;
 	}
 
 	Node* getBeginList() {
@@ -82,7 +87,7 @@ public:
 		}
 		else {
 			this->endList->setNext(newNode);
-			this->previousNode = this->endList;
+			this->nextToLastNode = this->endList;
 			this->endList = newNode;
 			
 		}
@@ -102,8 +107,14 @@ public:
 			this->beginList = this->endList = newNode;
 		}
 		else {
-			
+
+		
+
 			this->beginList = newNode;
+
+			if (this->nextToLastNode == NULL) {
+				this->nextToLastNode = this->beginList;
+			}
 		}
 
 	}
@@ -114,15 +125,15 @@ public:
 		}
 		else {
 
-			if (this->previousNode == NULL) {
+			if (this->nextToLastNode == NULL) {
 				this->endList = this->beginList = NULL;
 			}
 			else {
 
 				Node* tempNode = this->endList;
 
-				this->previousNode->setNext(NULL);
-				this->endList=this->previousNode;
+				this->nextToLastNode->setNext(NULL);
+				this->endList=this->nextToLastNode;
 
 				free(tempNode);
 
@@ -177,9 +188,13 @@ public:
 
 
 class Queue{
+private:
+	LinkedList* list;
+
+
 public:
 	
-	LinkedList* list;
+	
 
 
 	Queue() {
@@ -207,9 +222,12 @@ public:
 };
 
 class Stack{
+private:
+	LinkedList* list;
+
 public:
 
-	LinkedList* list;
+
 
 	
 
@@ -237,6 +255,36 @@ public:
 };
 
 int main() {
+
+
+
+	LinkedList* LinkedListGeneral = new LinkedList();
+
+	printf("Test for Linked List :\n");
+
+	printf("Inserting elements into the beginning of Linked List:\n");
+
+	LinkedListGeneral->InsertFirst(50);
+	LinkedListGeneral->InsertFirst(30);
+
+	LinkedListGeneral->PrintList();
+
+	printf("Inserting elements into the end of Linked List:\n");
+	LinkedListGeneral->InsertLast(90);
+	LinkedListGeneral->InsertLast(10);
+
+	LinkedListGeneral->PrintList();
+
+	printf("Removing elements from the beginning of Linked List:\n");
+
+	LinkedListGeneral->DeleteFirst();
+	LinkedListGeneral->PrintList();
+
+	printf("Removing elements from the end of Linked List:\n");
+
+	LinkedListGeneral->DeleteLast();
+	LinkedListGeneral->PrintList();
+
 
 	Stack* StackList = new Stack();
 
