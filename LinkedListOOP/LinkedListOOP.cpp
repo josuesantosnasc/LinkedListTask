@@ -298,64 +298,57 @@ int main() {
 
 	printf("Test for Linked List :\n");
 
-	printf("Inserting elements into the beginning of Linked List:\n");
+	LinkedListGeneral->InsertLast(45);
+	LinkedListGeneral->InsertLast(35);
+	LinkedListGeneral->InsertLast(67);
 
-	LinkedListGeneral->InsertFirst(50);
-	LinkedListGeneral->InsertFirst(30);
+	printf("Initial Linked List:\n");
 
 	LinkedListGeneral->PrintList();
 
-	printf("Inserting elements into the end of Linked List:\n");
-	LinkedListGeneral->InsertLast(90);
-	LinkedListGeneral->InsertLast(10);
 
+	printf("Inserting elements into the beginning of Linked List:\n");
+	printf("First element:50\n");
+	LinkedListGeneral->InsertFirst(50);
+	LinkedListGeneral->PrintList();
+	
+	printf("Second element:30\n");
+	LinkedListGeneral->InsertFirst(30);
+	LinkedListGeneral->PrintList();
+
+	
+
+	printf("Inserting elements into the end of Linked List:\n");
+	printf("First element:90\n");
+	LinkedListGeneral->InsertLast(90);
+	LinkedListGeneral->PrintList();
+
+	printf("Second element:10\n");
+	LinkedListGeneral->InsertLast(10);
 	LinkedListGeneral->PrintList();
 
 	printf("Removing elements from the beginning of Linked List:\n");
+	printf("First element:30\n");
+	LinkedListGeneral->DeleteFirst();
+	LinkedListGeneral->PrintList();
 
+	printf("Second element:50\n");
 	LinkedListGeneral->DeleteFirst();
 	LinkedListGeneral->PrintList();
 
 	printf("Removing elements from the end of Linked List:\n");
-
+	printf("First element:10\n");
 	LinkedListGeneral->DeleteLast();
 	LinkedListGeneral->PrintList();
 
-	printf("Removing 90:\n");
-	LinkedListGeneral->DeleteSpecificValue(90);
+
+
+	printf("Removing 35:\n");
+	LinkedListGeneral->DeleteSpecificValue(35);
 	LinkedListGeneral->PrintList();
 
-
-	Stack* StackList = new Stack();
-
-	Queue* QueueList = new Queue();
+	printf("\n\n");
 	
-
-	printf("Test for Stack :\n");
-	StackList->push(10);
-	StackList->push(30);
-	StackList->push(40);
-	StackList->push(50);
-
-	StackList->printStack();
-
-	printf("After removing the last element:\n");
-
-	StackList->pop();
-	StackList->printStack();
-
-	printf("Test for Queue:\n");
-	QueueList->push(10);
-	QueueList->push(30);
-	QueueList->push(40);
-	QueueList->push(50);
-
-	QueueList->printQueue();
-
-	printf("After removing the first element:\n");
-
-	QueueList->pop();
-	QueueList->printQueue();
 
 
 
